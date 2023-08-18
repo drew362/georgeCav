@@ -1,0 +1,13 @@
+package com.georgeCross.george;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class GeorgeApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
