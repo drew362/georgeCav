@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.message.AsynchronouslyFormattable;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 @Table(name = "product")
@@ -15,17 +13,15 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    @Column(name= "title")
+    @Column(name = "title")
     private String title;
-    @Column(name = "description",columnDefinition="text")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
-    @Column(name ="price")
-    private String price;
-    @Column(name = "city")
-    private String city;
-    @Column(name="author")
-    private String author;
+    @Column(name = "name")
+    private String name;
+
+    public Product(String s, String test1, String s1) {
+    }
 }

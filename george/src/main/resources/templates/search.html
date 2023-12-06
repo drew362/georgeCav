@@ -14,9 +14,9 @@
 
 <div>
     <p><b>
-    <div th:each="el : ${products}" class="alert alert-info mt-2"><a href="product/{id}">Подробнее</a></p>
+        <div th:each="el : ${products}" class="alert alert-info mt-2"></p>
         <h3 th:text="${el.title}"/>
-        <p th:text="${el.price}"/>
+        <p th:text="${el.name}"/>
         <p th:text="${el.description}"/>
     </div>
 </div>
@@ -29,17 +29,17 @@
 <!--<h3>Товаров нет</h3>-->
 <!--</div>-->
 <!--</#list>-->
-<hr>
-<h3>Создать новый продукт</h3>
-<form action="product/create" method="post">
-    Название объявления :<input type="text" name="title"/><br><br>
-    Описание объявления :<input type="text" name="description"/><br><br>
-    Цена :<input type="number" name="price"/><br><br>
-    Город :<input type="text" name="city"/><br><br>
-    Имя :<input type="text" name="author"/><br><br>
-    Добавить товар
-    <input type="submit" value="Добавить товар"/>
+<!--<hr>-->
+<!--<h3>Создать новый продукт</h3>-->
+<!--<form action="product/create" method="post">-->
+<!--    Название объявления :<input type="text" name="title"/><br><br>-->
+<!--    Описание объявления :<input type="text" name="description"/><br><br>-->
+<!--    Цена :<input type="number" name="price"/><br><br>-->
+<!--    Город :<input type="text" name="city"/><br><br>-->
+<!--    Имя :<input type="text" name="author"/><br><br>-->
+<!--    Добавить товар-->
+<!--    <input type="submit" value="Добавить товар"/>-->
 
-</form>
+<!--</form>-->
 </body>
 </html>
