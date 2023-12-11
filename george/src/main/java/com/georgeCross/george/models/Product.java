@@ -22,6 +22,6 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    public Product(String s, String test1, String s1) {
+    public Product(String title, String name, String description) {
     }
 }

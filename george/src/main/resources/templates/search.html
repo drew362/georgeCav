@@ -11,14 +11,13 @@
     Поиск по названию:<input type="text" name="title"><br>
     <input type=submit value="Поиск"/>
 </form>
-
 <div>
     <p><b>
         <div th:each="el : ${products}" class="alert alert-info mt-2"></p>
-        <h3 th:text="${el.title}"/>
-        <p th:text="${el.name}"/>
-        <p th:text="${el.description}"/>
-    </div>
+    <h3 th:text="${el.title}"/>
+    <p th:text="${el.name}"/>
+    <p th:text="${el.description}"/>
+</div>
 </div>
 
 <!--<#list products as product>-->
