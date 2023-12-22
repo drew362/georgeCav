@@ -16,26 +16,10 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> listProducts(String title) {
+    public List<Product> listFindByTitle(String title) {
         if (title != null) {
             return productRepository.findByTitle(title);
         }
-        return productRepository.findAll();
-    }
-
-    public void saveProduct(Product product) {
-        log.info("Saving new{}",product);
-        productRepository.save(product);
-    }
-
-    public void deleteProduct(Long id) {
-        log.info("delete product Title{};",id);
-        productRepository.deleteById(id);
-    }
-
-
-
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findByTitle(title);
     }
 }
