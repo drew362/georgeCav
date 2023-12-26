@@ -16,10 +16,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> listFindByTitle(String title) {
-        if (title != null) {
-            return productRepository.findByTitle(title);
-        }
+    public List<Product> getListFindByTitle(String title) {
         return productRepository.findByTitle(title);
     }
 }

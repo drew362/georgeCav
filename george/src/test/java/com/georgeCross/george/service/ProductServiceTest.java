@@ -39,7 +39,7 @@ public class ProductServiceTest {
         when(productRepository.findByTitle(title)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.listFindByTitle(title);
+        List<Product> result = productService.getListFindByTitle(title);
 
         // Assert
         Assertions.assertEquals(3, result.size());
@@ -56,7 +56,7 @@ public class ProductServiceTest {
         when(productRepository.findByTitle(title)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.listFindByTitle(title);
+        List<Product> result = productService.getListFindByTitle(title);
 
         // Assert
         Assertions.assertEquals(1, result.size());
