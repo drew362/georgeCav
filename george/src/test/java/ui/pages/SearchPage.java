@@ -22,9 +22,9 @@ public class SearchPage extends BaseTest {
         textField.setValue(text).pressEnter();
     }
 
-//    public SearchPage(String url) {
-//        Selenide.open(url);
-//    }
+    public SearchPage(String url) {
+        Selenide.open(url);
+    }
 
     public void openWebsite(String url) {
         Selenide.open(url);
