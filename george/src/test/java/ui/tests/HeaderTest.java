@@ -21,7 +21,7 @@ public class HeaderTest extends BaseTest {
     @Test
     @Description("Проверка элемнтов Header")
     public void checkElementsHeaderPage() {
-        Selenide.open("http://localhost:8085/search");
+        Selenide.open("http://localhost:8086/search");
         $(By.xpath("//span[contains(@class,'fs-4')]")).shouldHave(text("Борей"))
                 .shouldBe(Condition.visible);
         $(By.xpath("//a[contains(@href,'/search')]")).shouldHave(text("Поиск"))
@@ -33,9 +33,9 @@ public class HeaderTest extends BaseTest {
     @Test
     @Description("Поверка ссылок Header")
     public void clickHeaderElements() {
-        new SearchPage("http://localhost:8085/").clickLinkSearch();
+        new SearchPage("http://localhost:8086/").clickLinkSearch();
         String url = WebDriverRunner.url();
-        Assert.assertEquals(url, "http://localhost:8085/search");
+        Assert.assertEquals(url, "http://localhost:8086/search");
         $(By.xpath("//a[contains(@href,'/shop')]")).click();
         Assert.assertEquals("//a[contains(@href,'/shop')]", "//a[contains(@href,'/shop')]");
         $(By.xpath("//span[contains(@class,'fs-4')]")).click();

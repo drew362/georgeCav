@@ -17,7 +17,7 @@ public class SearchPageTest extends BaseTest {
     @Test
     @Description("Отображение элементов страницы")
     public void allThingsOnPageIsVisible() {
-        Selenide.open("http://localhost:8085/search");
+        Selenide.open("http://localhost:8086/search");
         $(By.xpath("//input")).shouldBe(Condition.visible);
         $(By.xpath("//button")).shouldBe(Condition.visible);
     }
@@ -25,7 +25,7 @@ public class SearchPageTest extends BaseTest {
     @Test
     @Description("Проверка поиска по номеру креста")
     public void checkRezultInFieldText() {
-        Selenide.open("http://localhost:8085/search");
+        Selenide.open("http://localhost:8086/search");
         $(By.xpath("//input")).setValue("200151");
         $(By.xpath("//button")).click();
         $(By.xpath("//div[contains(@class,'alert')]")).shouldHave(text("КЛОПКОВ Петр"));
