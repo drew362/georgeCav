@@ -8,6 +8,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import ui.BaseTest;
 import ui.pages.SearchPage;
@@ -18,6 +19,10 @@ import static com.codeborne.selenide.Selenide.$;
 @Feature("Хэдэр")
 public class HeaderTest extends BaseTest {
 
+//    @BeforeEach
+//    public void prepareForTest(){
+//        Selenide.open();
+//    }
     @Test
     @Description("Проверка элемнтов Header")
     public void checkElementsHeaderPage() {
@@ -33,7 +38,7 @@ public class HeaderTest extends BaseTest {
     @Test
     @Description("Поверка ссылок Header")
     public void clickHeaderElements() {
-        new SearchPage("http://localhost:8086/").clickLinkSearch();
+        Selenide.open("http://localhost:8086/search");
         String url = WebDriverRunner.url();
         Assert.assertEquals(url, "http://localhost:8086/search");
         $(By.xpath("//a[contains(@href,'/shop')]")).click();
