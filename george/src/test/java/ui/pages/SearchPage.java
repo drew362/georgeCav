@@ -12,18 +12,15 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchPage extends BaseTest {
     public final SelenideElement linkSearch = $x("//a[contains(@href,'/search')]");
-    private final SelenideElement textField = $x("//input");
-    public final SelenideElement result = $(By.xpath("//div[contains(@class,'alert')]"));
+    public final SelenideElement textField = $x("//input");
+    public SelenideElement searchButton = $x("//button");
+    public final SelenideElement resultSearch = $(By.xpath("//div[contains(@class,'alert')]"));
 
     @FindBy(xpath = "//input")
     private WebElement textFieldInput;
 
     public void searchFor(String text) {
         textField.setValue(text).pressEnter();
-    }
-
-    public SearchPage(String url) {
-        Selenide.open(url);
     }
 
     public void openWebsite(String url) {
