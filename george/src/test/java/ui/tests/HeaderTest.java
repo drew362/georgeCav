@@ -1,17 +1,14 @@
 package ui.tests;
-
-
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import ui.BaseTest;
-import ui.pages.SearchPage;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -19,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class HeaderTest extends BaseTest {
 
     @Test
-    @Description("Проверка элемнтов Header")
+    @DisplayName("Проверка элемнтов Header")
     public void checkElementsHeaderPage() {
         Selenide.open("http://localhost:8086/search");
         $(By.xpath("//span[contains(@class,'fs-4')]")).shouldHave(text("Борей"))
@@ -31,9 +28,9 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    @Description("Поверка ссылок Header")
+    @DisplayName("Поверка ссылок Header")
     public void clickHeaderElements() {
-        new SearchPage("http://localhost:8086/").clickLinkSearch();
+        Selenide.open("http://localhost:8086/search");
         String url = WebDriverRunner.url();
         Assert.assertEquals(url, "http://localhost:8086/search");
         $(By.xpath("//a[contains(@href,'/shop')]")).click();
