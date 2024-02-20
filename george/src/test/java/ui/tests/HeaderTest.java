@@ -4,8 +4,9 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Feature;
 import org.junit.Assert;
-import org.junit.Test;
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import ui.BaseTest;
 import static com.codeborne.selenide.Condition.text;
