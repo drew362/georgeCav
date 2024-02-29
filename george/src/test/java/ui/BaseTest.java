@@ -10,9 +10,7 @@ import org.junit.Before;
 abstract public class BaseTest {
     public void setUp() {
         Configuration.browser = "chrome";
-//        WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver","/Users/a.kozin/Downloads/chromedriver");
-//        Configuration.browserBinary="/Users/a.kozin/Downloads/chromedriver";
+//        System.setProperty("webdriver.chrome.driver","/Users/a.kozin/Downloads/chromedriver");
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("AllureSelenide",new AllureSelenide());
         Configuration.headless = false;
