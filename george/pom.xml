@@ -84,6 +84,11 @@
             <artifactId>webdrivermanager</artifactId>
             <version>5.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>chromedriver</artifactId>
+            <version>1.2</version>
+        </dependency>
 <!--                <dependency>-->
 <!--                    <groupId>junit</groupId>-->
 <!--                    <artifactId>junit</artifactId>-->
