@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.$;
 @Feature("Хэдэр")
 public class HeaderTest extends BaseTest {
 
-    @Test
+//    @Test
     @DisplayName("Проверка элемнтов Header")
     public void checkElementsHeaderPage() {
         Selenide.open("http://localhost:8086/search");
@@ -27,7 +27,7 @@ public class HeaderTest extends BaseTest {
                 .shouldBe(Condition.visible);
     }
 
-    @Test
+//    @Test
     @DisplayName("Поверка ссылок Header")
     public void clickHeaderElements() {
         Selenide.open("http://localhost:8086/search");

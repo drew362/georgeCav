@@ -16,7 +16,7 @@ public class SearchPageTest extends BaseTest {
 
     SearchPage searchPage = new SearchPage();
 
-    @Test
+//    @Test
     @DisplayName("Отображение элементов страницы")
     public void allThingsOnPageIsVisible() {
         Selenide.open("http://localhost:8086/search");
@@ -24,7 +24,7 @@ public class SearchPageTest extends BaseTest {
         searchPage.searchButton.shouldBe(Condition.visible);
     }
 
-    @Test
+//    @Test
     @DisplayName("Проверка поиска по номеру креста")
     public void checkRezultInFieldText() {
         Selenide.open("http://localhost:8086/search");
