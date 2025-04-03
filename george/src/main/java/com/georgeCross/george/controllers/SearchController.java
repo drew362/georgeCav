@@ -19,16 +19,9 @@ public class SearchController {
 
     @GetMapping("/search")
     @ApiOperation("поиск по номеру")
-    public String searchProducts(
-            @RequestParam(name = "number", required = false) String number,
-            @RequestParam(name = "name", required = false) String name,
-            Model model) {
+    public String searchProducts(@RequestParam(name = "query",required=false) String query, Model model) {
 
-        if (number != null && !number.isEmpty()) {
-            model.addAttribute("products", productService.getListFindByNumber(number));
-        } else if (name != null && name.isEmpty()) {
-            model.addAttribute("products", productService.getListFindByName(name));
-        }
-        return "search";
+            model.addAttribute("products", productService.getListFindByNumberOrName(query));
+            return "search";
     }
 }

@@ -15,12 +15,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> getListFindByNumber(String number) {
-        return productRepository.findByNumber(number);
-    }
-
-    public List<Product> getListFindByName(String name) {
-        return productRepository.findByName(name);
+    public List<Product> getListFindByNumberOrName(String query) {
+        return productRepository.findByNumberOrName(query);
     }
 
 }
