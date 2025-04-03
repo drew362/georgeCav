@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <form action="/search" method="get">
         <h3> Поиск:</h3>
-        <input type="text" name="title" placeholder="Номер креста" class="form-control">
+        <input type="text" name="number" placeholder="Номер креста" class="form-control">
         <button type="submit" class="btn btn-success">Поиск</button>
     </form>
 </div>
@@ -19,7 +19,7 @@
 <div>
     <p><b>
         <div th:each="el : ${products}" class="alert alert-info mt-2"></p>
-    <h3 th:text="${el.title}"/>
+    <h3 th:text="${el.number}"/>
     <p th:text="${el.name}"/>
     <p th:text="${el.description}"/>
 </div>

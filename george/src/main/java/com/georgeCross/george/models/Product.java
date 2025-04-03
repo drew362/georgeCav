@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product")
+@Table(name = "search1")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,13 +15,13 @@ public class Product {
     @Id
     @Column(name = "id")
     private Long id;
-    @Column(name = "title")
-    private String title;
+    @Column(name = "number")
+    private String number;
     @Column(name = "description", columnDefinition = "text")
     private String description;
     @Column(name = "name")
     private String name;
 
-    public Product(String title, String name, String description) {
+    public Product(String number, String name, String description) {
     }
 }

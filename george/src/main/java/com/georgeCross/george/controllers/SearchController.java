@@ -14,12 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Api("Контроллер Swagger")
 
 public class SearchController {
+
     private final ProductService productService;
 
     @GetMapping("/search")
     @ApiOperation("поиск по номеру")
-    public String products(@RequestParam(name = "title", required = false) String title, Model model) {
-        model.addAttribute("products", productService.getListFindByTitle(title));
+    public String searchProducts(
+            @RequestParam(name = "number", required = false) String number,
+            @RequestParam(name = "name", required = false) String name,
+            Model model) {
+
+        if (number != null && !number.isEmpty()) {
+            model.addAttribute("products", productService.getListFindByNumber(number));
+        } else if (name != null && name.isEmpty()) {
+            model.addAttribute("products", productService.getListFindByName(name));
+        }
         return "search";
     }
 }
