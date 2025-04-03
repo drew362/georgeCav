@@ -16,16 +16,35 @@
     </form>
 </div>
 
-<div>
-    <p><b>
-        <div th:each="el : ${products}" class="alert alert-info mt-2"></p>
-    <h3 th:text="${el.number}"/>
-    <p th:text="${el.name}"/>
-    <p th:text="${el.description}"/>
+<!-- Вывод сообщений -->
+<div id="message" th:if="${message != null}" class="alert alert-warning mt-4" role="alert">
+    <span th:text="${message}"></span>
+</div>
+
+<div th:unless="${#lists.isEmpty(products)}">
+    <!-- Цикл по продуктам -->
+    <div th:each="el : ${products}" class="alert alert-info mt-2">
+        <h3 th:text="${el.number}"></h3>
+        <p th:text="${el.name}"></p>
+        <p th:text="${el.description}"></p>
+    </div>
 </div>
 
 <div th:fragment="footer">
     <footer th:insert="blocks/footer::footer"></footer>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var messageElement = document.getElementById('message');
+
+        if (messageElement) {
+            setTimeout(function () {
+                messageElement.style.display = 'none';
+            }, 20000); // 20 секунд (в миллисекундах)
+        }
+    });
+</script>
+
 </body>
 </html>
