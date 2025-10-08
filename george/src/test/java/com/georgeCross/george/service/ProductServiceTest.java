@@ -36,10 +36,10 @@ public class ProductServiceTest {
         products.add(new Product("Product 2", "Micola", "Description 2"));
         products.add(new Product(null, "Ivan", "Description 3"));
 
-        when(productRepository.findByNumber(title)).thenReturn(products);
+        when(productRepository.findByNumberOrName(title)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.getListFindByNumber(title);
+        List<Product> result = productService.getListFindByNumberOrName(title);
 
         // Assert
         Assertions.assertEquals(3, result.size());
@@ -53,10 +53,10 @@ public class ProductServiceTest {
         List<Product> products = new ArrayList<>();
         products.add(new Product(title, null, null));
 
-        when(productRepository.findByNumber(title)).thenReturn(products);
+        when(productRepository.findByNumberOrName(title)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.getListFindByNumber(title);
+        List<Product> result = productService.getListFindByNumberOrName(title);
 
         // Assert
         Assertions.assertEquals(1, result.size());
