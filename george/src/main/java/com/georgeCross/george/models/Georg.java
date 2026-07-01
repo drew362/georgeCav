@@ -6,22 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "search1")
+@Table(name = "georg")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Georg {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "number")
-    private String number;
+    private Integer number;
+
     @Column(name = "description", columnDefinition = "text")
     private String description;
-    @Column(name = "name")
+
+    @Column(name = "fio", columnDefinition = "text")
     private String name;
 
-    public Product(String number, String name, String description) {
-    }
 }

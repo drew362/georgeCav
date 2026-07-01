@@ -21,12 +21,17 @@
     <span th:text="${message}"></span>
 </div>
 
-<div th:unless="${#lists.isEmpty(products)}">
-    <!-- Цикл по продуктам -->
-    <div th:each="el : ${products}" class="alert alert-info mt-2">
-        <h3 th:text="${el.number}"></h3>
-        <p th:text="${el.name}"></p>
-        <p th:text="${el.description}"></p>
+<div class="container mt-4" th:unless="${#lists.isEmpty(products)}">
+    <!-- Цикл по найденным кавалерам -->
+    <div th:each="el : ${products}" class="alert alert-info mt-2 shadow-sm">
+        <!-- Добавили явное приведение к строке th:text="${'№ ' + el.number}" -->
+        <h3 th:text="${'Георгиевский крест № ' + el.number}"></h3>
+
+        <!-- Выводим ФИО жирным шрифтом -->
+        <h5 class="fw-bold text-dark" th:text="${el.name}"></h5>
+
+        <!-- Описание подвига -->
+        <p class="text-muted" th:text="${el.description}"></p>
     </div>
 </div>
 

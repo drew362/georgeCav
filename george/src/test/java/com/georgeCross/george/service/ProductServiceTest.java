@@ -5,8 +5,10 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.georgeCross.george.models.Product;
-import com.georgeCross.george.repositories.ProductRepository;
+import com.georgeCross.george.models.Georg;
+
+import com.georgeCross.george.repositories.GeorgRepository;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +19,10 @@ import org.mockito.MockitoAnnotations;
 public class ProductServiceTest {
 
     @Mock
-    private ProductRepository productRepository;
+    private GeorgRepository georgRepository;
 
     @InjectMocks
-    private ProductService productService;
+    private GeorgService georgService;
 
     @BeforeEach
     public void setUp() {
@@ -30,16 +32,16 @@ public class ProductServiceTest {
     @Test
     public void testListProducts() {
         // Arrange
-        String title = "Product 1";
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(title, "Petia", "Description 1"));
-        products.add(new Product("Product 2", "Micola", "Description 2"));
-        products.add(new Product(null, "Ivan", "Description 3"));
+        String name = "Product 1";
+        List<Georg> products = new ArrayList<>();
+        products.add(new Georg(null, 34525, "Petia", name));
+        products.add(new Georg(null,2, "Micola", "Description 2"));
+        products.add(new Georg(null,5757575, "Ivan", "Description 3"));
 
-        when(productRepository.findByNumber(title)).thenReturn(products);
+        when(georgRepository.findByNumberOrName(name)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.getListFindByNumber(title);
+        List<Georg> result = georgService.getListFindByNumberOrName(name);
 
         // Assert
         Assertions.assertEquals(3, result.size());
@@ -49,14 +51,14 @@ public class ProductServiceTest {
     @Test
     public void testListProductsWithTitle() {
         // Arrange
-        String title = "Product 1";
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(title, null, null));
+        String name = "Product 1";
+        List<Georg> products = new ArrayList<>();
+        products.add(new Georg(null, 454554, null,name));
 
-        when(productRepository.findByNumber(title)).thenReturn(products);
+        when(georgRepository.findByNumberOrName(name)).thenReturn(products);
 
         // Act
-        List<Product> result = productService.getListFindByNumber(title);
+        List<Georg> result = georgService.getListFindByNumberOrName(name);
 
         // Assert
         Assertions.assertEquals(1, result.size());
