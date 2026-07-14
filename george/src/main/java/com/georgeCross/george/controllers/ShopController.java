@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,15 +64,14 @@ public class ShopController {
             existingProduct.setDescription(productDetails.getDescription());
             existingProduct.setPrice(productDetails.getPrice());
 
-            if (files != null && files.length > 0 && !files[0].isEmpty()) {
+            if (files != null && files.length > 0) {
                 List<String> newCloudImageUrls = imageService.uploadProductImage(files, existingProduct.getId());
-                List<String> currentUrls = existingProduct.getImageUrls() != null
-                        ? new ArrayList<>(existingProduct.getImageUrls())
-                        : new ArrayList<>();
 
-                currentUrls.addAll(newCloudImageUrls);
+                if (existingProduct.getImageUrls() == null) {
+                    existingProduct.setImageUrls(new ArrayList<>());
+                }
 
-                existingProduct.setImageUrls(currentUrls);
+                existingProduct.getImageUrls().addAll(newCloudImageUrls);
             }
 
             Product updateProduct = productRepository.save(existingProduct);
@@ -81,19 +82,28 @@ public class ShopController {
     @DeleteMapping("/products/{id}/images")
     public ResponseEntity<Product> deleteImg(
             @PathVariable("id") Long id,
-            @RequestParam("imgUrl") String imageUrl
-    ) {
+            @RequestParam("imgUrl") String imageUrl) {
+
         return productRepository.findById(id).map(product -> {
             List<String> currentUrls = product.getImageUrls();
 
-            if (currentUrls != null && currentUrls.contains(imageUrl)) {
-                imageService.deleteProductImageFromCloud(imageUrl);
+            if (currentUrls != null && imageUrl != null) {
+                try {
+                    String decodedUrl = URLDecoder.decode(imageUrl, StandardCharsets.UTF_8);
+                    if (currentUrls.contains(decodedUrl)) {
+                        imageService.deleteProductImageFromCloud(decodedUrl);
 
-                currentUrls.remove(imageUrl);
-                product.setImageUrls(currentUrls);
+                        currentUrls.remove(decodedUrl);
+                        product.setImageUrls(currentUrls);
 
-                Product newUpdateProduct = productRepository.save(product);
-                return ResponseEntity.ok(newUpdateProduct);
+                        Product updatedProduct = productRepository.save(product);
+                        return ResponseEntity.ok(updatedProduct);
+                    } else {
+                        System.out.println("Дебаг удаления: Ссылка не найдена в товаре. Искали: " + decodedUrl);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Ошибка при декодировании URL: " + e.getMessage());
+                }
             }
             return ResponseEntity.badRequest().body(product);
         }).orElseGet(() -> ResponseEntity.notFound().build());

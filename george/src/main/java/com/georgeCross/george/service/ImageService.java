@@ -25,17 +25,21 @@ public class ImageService {
     }
 
 
-    public List<String> uploadProductImage(MultipartFile[] files, Long productsId) {
+    public List<String> uploadProductImage(MultipartFile[] files, Long productId) {
         List<String> uploadedUrls = new ArrayList<>();
 
-        if (files == null || files.length > 0)
+        if (files == null || files.length == 0) {
             return uploadedUrls;
+        }
 
         for (MultipartFile file : files) {
-            if (file.isEmpty()) continue;
+            // ИСПРАВЛЕНО: Проверяем размер в байтах напрямую, это на 100% надежнее, чем isEmpty()
+            if (file == null || file.getSize() == 0) {
+                continue;
+            }
 
             String fileExtension = getFileExtension(file.getOriginalFilename());
-            String fileName = "products/" + productsId + "/" + UUID.randomUUID() + fileExtension;
+            String fileName = "items/" + productId + "/" + UUID.randomUUID() + fileExtension;
 
             try {
                 PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -44,13 +48,15 @@ public class ImageService {
                         .contentType(file.getContentType())
                         .build();
 
-                s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+                s3Client.putObject(putObjectRequest,
+                        RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-                String finalUrls = String.format("https://storage.yandexcloud.net/%s/%s", s3Config.getBucketName(), fileName);
-                uploadedUrls.add(finalUrls);
+                String imageUrl = String.format("https://storage.yandexcloud.net/%s/%s", s3Config.getBucketName(), fileName);
+                uploadedUrls.add(imageUrl);
 
-            } catch (IOException e) {
-                throw new RuntimeException("not load foto");
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Сбой Yandex Cloud S3: " + e.getMessage(), e);
             }
         }
         return uploadedUrls;
