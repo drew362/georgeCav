@@ -10,7 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://aquilon-antique.ru"})
+
 @RequiredArgsConstructor
 public class SearchController {
 

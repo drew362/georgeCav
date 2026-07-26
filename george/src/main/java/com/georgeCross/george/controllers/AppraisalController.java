@@ -13,7 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://aquilon-antique.ru"})
 @RequiredArgsConstructor
 public class AppraisalController {
 

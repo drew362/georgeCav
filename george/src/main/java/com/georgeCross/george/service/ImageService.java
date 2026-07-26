@@ -8,7 +8,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +32,6 @@ public class ImageService {
         }
 
         for (MultipartFile file : files) {
-            // ИСПРАВЛЕНО: Проверяем размер в байтах напрямую, это на 100% надежнее, чем isEmpty()
             if (file == null || file.getSize() == 0) {
                 continue;
             }
