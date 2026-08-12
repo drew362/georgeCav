@@ -1,10 +1,11 @@
 package com.georgeCross.george.controllers;
 
+import com.georgeCross.george.models.Category;
 import com.georgeCross.george.models.Product;
 import com.georgeCross.george.repositories.ProductRepository;
-
 import com.georgeCross.george.service.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,18 +25,22 @@ public class ShopController {
     private final ImageService imageService;
 
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(@RequestParam(value = "category", required = false) Category category) {
+        if (category != null) {
+            return productRepository.findByCategory(category);
+        }
         return productRepository.findAll();
     }
 
-    @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable("id") Long id) {
-        return productRepository.findById(id).orElse(null);
+    @GetMapping("/products/{slug}")
+    public ResponseEntity<Product> getProductBySlug(@PathVariable("slug") String slug) {
+        return productRepository.findBySlug(slug)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping("/products")
     public Product createProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile[] file) {
-
         Product savedProduct = productRepository.save(product);
 
         if (file != null && file.length > 0) {
@@ -57,12 +62,13 @@ public class ShopController {
     public ResponseEntity<Product> updateProduct(
             @PathVariable("id") Long id,
             @ModelAttribute Product productDetails,
-            @RequestParam(value = "file",
-                    required = false) MultipartFile[] files) {
+            @RequestParam(value = "file", required = false) MultipartFile[] files) {
         return productRepository.findById(id).map(existingProduct -> {
             existingProduct.setTitle(productDetails.getTitle());
             existingProduct.setDescription(productDetails.getDescription());
             existingProduct.setPrice(productDetails.getPrice());
+            existingProduct.setCategory(productDetails.getCategory());
+            existingProduct.setSlug(productDetails.getSlug());
 
             if (files != null && files.length > 0) {
                 List<String> newCloudImageUrls = imageService.uploadProductImage(files, existingProduct.getId());
@@ -108,6 +114,4 @@ public class ShopController {
             return ResponseEntity.badRequest().body(product);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
 }

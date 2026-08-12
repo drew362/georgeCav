@@ -1,15 +1,15 @@
 package com.georgeCross.george.controllers;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
@@ -17,80 +17,47 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AppraisalController {
 
-    private final String TELEGRAM_TOKEN = "";
-    private final String CHAT_ID = "";
+    @Autowired
+    private final JavaMailSender mailSender;
 
     @PostMapping(value = "/appraisal", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> sendToTelegram(
+    public ResponseEntity<?> sendAppraisalEmail(
             @RequestParam("name") String name,
             @RequestParam("phone") String phone,
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam("file") MultipartFile[] files) {
 
         try {
-            RestTemplate restTemplate = new RestTemplate();
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom("kozinandrey@mail.ru");
+            helper.setTo("kozinandrey@mail.ru");
+            helper.setSubject("🔔 НОВАЯ ЗАЯВКА НА ОЦЕНКУ ПРЕДМЕТОВ");
 
-            // Формируем текст сообщения для эксперта «Аквилон»
-            String caption = String.format(
-                    "🔔 НОВАЯ ЗАЯВКА НА ОЦЕНКУ\n\n👤 Имя: %s\n📞 Телефон: %s\n💬 Комментарий: %s",
-                    name, phone, (comment != null && !comment.trim().isEmpty() ? comment : "нет")
+            String text = String.format(
+                    "Поступила новая заявка с сайта Аквилон:\n\n👤 Имя клиента: %s\n📞 Телефон: %s\n💬 Комментарий: %s",
+                    name, phone, (comment != null && !comment.trim().isEmpty() ? comment : "нет комментария")
             );
+            helper.setText(text);
 
-            // Сценарий 1: Отправка одной фотографии
-            if (files != null && files.length == 1) {
-                // ИСПРАВЛЕНО: Безопасная сборка URI через UriComponentsBuilder
-                URI uri = UriComponentsBuilder.fromHttpUrl("https://api.telegram.org")
-                        .path("/bot" + TELEGRAM_TOKEN + "/sendPhoto")
-                        .build()
-                        .toUri();
 
-                MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-                body.add("chat_id", CHAT_ID);
-                body.add("caption", caption);
-                body.add("photo", files[0].getResource());
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-                restTemplate.postForEntity(uri, new HttpEntity<>(body, headers), String.class);
-            }
-            // Сценарий 2: Отправка нескольких фотографий (Альбом/Пакет)
-            else if (files != null && files.length > 1) {
-
-                // 1. Отправляем текстовые данные клиента (sendMessage)
-                URI textUri = UriComponentsBuilder.fromHttpUrl("https://api.telegram.org")
-                        .path("/bot" + TELEGRAM_TOKEN + "/sendMessage")
-                        .queryParam("chat_id", CHAT_ID)
-                        .queryParam("text", caption)
-                        .build()
-                        .toUri();
-
-                restTemplate.getForObject(textUri, String.class);
-
-                // 2. Поочередно отправляем все прикрепленные фотографии в этот же чат
-                URI photoUri = UriComponentsBuilder.fromHttpUrl("https://api.telegram.org")
-                        .path("/bot" + TELEGRAM_TOKEN + "/sendPhoto")
-                        .build()
-                        .toUri();
-
+            if (files != null) {
                 for (MultipartFile file : files) {
                     if (file == null || file.isEmpty()) continue;
 
-                    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-                    body.add("chat_id", CHAT_ID);
-                    body.add("photo", file.getResource());
-
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-                    restTemplate.postForEntity(photoUri, new HttpEntity<>(body, headers), String.class);
+                    // Берем оригинальное имя файла, если его нет — генерируем дефолтное
+                    String fileName = file.getOriginalFilename() != null ? file.getOriginalFilename() : "photo.jpg";
+                    helper.addAttachment(fileName, file);
                 }
             }
+
+            mailSender.send(message);
 
             return ResponseEntity.ok().body("{\"status\":\"success\"}");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("Ошибка при отправке в Telegram");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"status\":\"error\", \"message\":\"Ошибка при отправке почты\"}");
         }
     }
 }
