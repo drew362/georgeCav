@@ -28,9 +28,16 @@ public class Product {
     @Column(name = "price")
     private Integer price;
 
+    @Column(unique = true, nullable = false)
+    private String slug;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "products_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private Category category;
 
 }
