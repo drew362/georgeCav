@@ -1,7 +1,6 @@
 package com.georgeCross.george.controllers;
 
 import com.georgeCross.george.models.Georg;
-import com.georgeCross.george.models.Product;
 import com.georgeCross.george.repositories.ProductRepository;
 import com.georgeCross.george.service.GeorgService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +21,4 @@ public class SearchController {
     public List<Georg> searchHeroes(@RequestParam("query")String queryText){
         return georgService.getListFindByNumberOrName(queryText);
     }
-
 }
