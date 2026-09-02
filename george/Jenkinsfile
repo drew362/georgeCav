@@ -8,20 +8,21 @@ pipeline {
 
     stages {
         stage('Сборка и запуск автотестов') {
-           dir('george') {
-                      sh 'mvn clean test'
-                  }
+            steps {
+                dir('george') {
+                    sh 'mvn clean test'
+                }
+            }
         }
     }
 
     post {
         always {
-            // Генерация и публикация отчета Allure в интерфейсе Jenkins
             allure includeProperties: false,
-                   jdk: '',
-                   properties: [],
-                   reportBuildPolicy: 'ALWAYS',
-                   results: [[path: 'target/allure-results']]
+            jdk: '',
+            properties: [],
+            reportBuildPolicy: 'ALWAYS',
+            results: [[path: 'george/target/allure-results']]
         }
     }
 }
