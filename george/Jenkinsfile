@@ -8,10 +8,9 @@ pipeline {
 
     stages {
         stage('Сборка и запуск автотестов') {
-            steps {
-                // Запускаем тесты сайта aquilon-antique.ru
-                sh 'mvn clean test'
-            }
+           dir('george') {
+                      sh 'mvn clean test'
+                  }
         }
     }
 
