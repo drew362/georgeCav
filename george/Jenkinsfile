@@ -6,17 +6,20 @@ pipeline {
         jdk 'Java 17'
     }
 
-    stage('Запуск автотестов') {
-        steps {
-            dir('george') {
-                sh "mvn clean test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
+    stages {
+        stage('Запуск автотестов') {
+            steps {
+                dir('george') {
+                    // Используем двойные кавычки, чтобы Jenkins подставил скрытые пароли из настроек
+                    sh "mvn clean test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
+                }
             }
         }
     }
 
     post {
         always {
-            // Jenkins берёт стандартные XML-отчёты и сам строит из них красивый Allure!
+            // Строим отчет Allure по результатам стандартных JUnit XML-логов
             allure includeProperties: false,
                     jdk: '',
                     properties: [],
