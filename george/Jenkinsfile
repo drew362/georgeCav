@@ -7,10 +7,11 @@ pipeline {
     }
 
     stages {
-        stage('Сборка и запуск автотестов') {
+        stage('Запуск автотестов') {
             steps {
                 dir('george') {
-                    sh 'mvn clean test -Dspring.datasource.url=jdbc:postgresql://172.17.0.1:5432/Search2'
+                    // Просто запускаем тесты без всяких агентов
+                    sh 'mvn clean test'
                 }
             }
         }
@@ -18,11 +19,8 @@ pipeline {
 
     post {
         always {
-            allure includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'george/target/allure-results']]
+            // Jenkins сам соберёт стандартные результаты тестов JUnit и покажет графики
+            junit 'george/target/surefire-reports/*.xml'
         }
     }
 }
