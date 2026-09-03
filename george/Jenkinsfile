@@ -9,22 +9,18 @@ pipeline {
     stage('Сборка и запуск автотестов') {
         steps {
             dir('george') {
-
-                withEnv(['SPRING_DATASOURCE_URL=jdbc:postgresql://172.17.0.1:5432/Search2']) {
-                    sh 'mvn clean test'
-                }
+                sh 'mvn clean test -Dspring.datasource.url=jdbc:postgresql://172.17.0.1:5432/Search2'
             }
         }
     }
 
-
     post {
         always {
             allure includeProperties: false,
-            jdk: '',
-            properties: [],
-            reportBuildPolicy: 'ALWAYS',
-            results: [[path: 'george/target/allure-results']]
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'george/target/allure-results']]
         }
     }
 }
