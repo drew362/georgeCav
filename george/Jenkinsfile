@@ -10,8 +10,7 @@ pipeline {
         stage('Запуск автотестов') {
             steps {
                 dir('george') {
-                    // Используем двойные кавычки, чтобы Jenkins подставил скрытые пароли из настроек
-                    sh "mvn clean test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
+                    sh "mvn clean test -Dspring.profiles.active=test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
                 }
             }
         }
