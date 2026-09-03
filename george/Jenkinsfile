@@ -6,12 +6,10 @@ pipeline {
         jdk 'Java 17'
     }
 
-    stages {
-        stage('Запуск автотестов') {
-            steps {
-                dir('george') {
-                    sh 'mvn clean test'
-                }
+    stage('Запуск автотестов') {
+        steps {
+            dir('george') {
+                sh "mvn clean test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
             }
         }
     }
