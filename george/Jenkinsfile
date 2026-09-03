@@ -6,10 +6,12 @@ pipeline {
         jdk 'Java 17'
     }
 
-    stage('Сборка и запуск автотестов') {
-        steps {
-            dir('george') {
-                sh 'mvn clean test -Dspring.datasource.url=jdbc:postgresql://172.17.0.1:5432/Search2'
+    stages {
+        stage('Сборка и запуск автотестов') {
+            steps {
+                dir('george') {
+                    sh 'mvn clean test -Dspring.datasource.url=jdbc:postgresql://172.17.0.1:5432/Search2'
+                }
             }
         }
     }
