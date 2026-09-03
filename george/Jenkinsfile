@@ -10,7 +10,6 @@ pipeline {
         stage('Запуск автотестов') {
             steps {
                 dir('george') {
-                    // Просто запускаем тесты без всяких агентов
                     sh 'mvn clean test'
                 }
             }
@@ -19,8 +18,12 @@ pipeline {
 
     post {
         always {
-            // Jenkins сам соберёт стандартные результаты тестов JUnit и покажет графики
-            junit 'george/target/surefire-reports/*.xml'
+            // Jenkins берёт стандартные XML-отчёты и сам строит из них красивый Allure!
+            allure includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'george/target/surefire-reports']]
         }
     }
 }
