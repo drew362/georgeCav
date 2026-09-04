@@ -27,15 +27,17 @@ pipeline {
 
             // 2. Безопасно достаем токен из зашифрованного сейфа Jenkins
             withCredentials([string(credentialsId: 'telegram_bot_token', variable: 'TELEGRAM_TOKEN')]) {
-                sh '''
-                    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-                    -d "chat_id=196918542" \
-                    -d "parse_mode=HTML" \
-                    -d "text=🚀 <b>Автотесты Aquilon завершены!</b>%0A%0AСтатус: <b>${currentBuild.currentResult}</b>%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 <a href='${env.BUILD_URL}allure/'>ОТКРЫТЬ ALLURE REPORT</a>"
-                '''
+                sh """
+                curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+                -d "chat_id=196918542" \
+                -d "parse_mode=HTML" \
+                -d "text=🚀 <b>Автотесты Aquilon завершены!</b>%0A%0AСтатус: <b>${currentBuild.currentResult}</b>%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 <a href='${env.BUILD_URL}allure/'>ОТКРЫТЬ ALLURE REPORT</a>"
+            """
             }
         }
     }
+
+}
 
 
 }
