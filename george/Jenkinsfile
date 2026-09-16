@@ -29,14 +29,15 @@ pipeline {
                 sh """
                     curl -k -s -X POST "https://platform-api2.max.ru/messages" \
                     -H "Authorization: \$MAX_TOKEN" \
-                    -d "chat_id=13956800" \
-                    -d "text=🚀 Автотесты Aquilon завершены!%0A%0AСтатус: ${currentBuild.currentResult}%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 Отчет Allure: ${env.BUILD_URL}allure/"
+                    -H "Content-Type: application/json" \
+                     -d '{
+                        "chat_id": 13956800,
+                        "text": "🚀 Автотесты Aquilon завершены!\\n\\nСтатус: ${currentBuild.currentResult}\\nСборка: #${env.BUILD_NUMBER}\\n\\n🔗 Отчет Allure: ${env.BUILD_URL}allure/"
+                    }'
                 """
             }
         }
     }
-
-
 
 
 }
