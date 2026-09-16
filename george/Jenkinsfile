@@ -18,21 +18,21 @@ pipeline {
 
     post {
         always {
-            // 1. Генерируем Allure Report
+            // 1. Генерируем Allure Report по результатам тестов H2
             allure includeProperties: false,
                     jdk: '',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
                     results: [[path: 'george/target/surefire-reports']]
 
-            // 2. Безопасно достаем токен из зашифрованного сейфа Jenkins
-            withCredentials([string(credentialsId: 'telegram_bot_token', variable: 'TELEGRAM_TOKEN')]) {
-                sh """
-                curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-                -d "chat_id=196918542" \
-                -d "parse_mode=HTML" \
-                -d "text=🚀 <b>Автотесты Aquilon завершены!</b>%0A%0AСтатус: <b>${currentBuild.currentResult}</b>%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 <a href='${env.BUILD_URL}allure/'>ОТКРЫТЬ ALLURE REPORT</a>"
-            """
+            // 2. Достаем токен из сейфа Credentials и шлем веб-запрос на сервера МАКС
+            withCredentials([string(credentialsId: 'max_bot_token', variable: 'MAX_TOKEN')]) {
+                sh '''
+                    curl -s -X POST "https://max.ru" \
+                    -H "Authorization: ${MAX_TOKEN}" \
+                    -d "chat_id=13956800" \
+                    -d "text=🚀 Автотесты Aquilon завершены!%0A%0AСтатус: ${currentBuild.currentResult}%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 Отчет Allure: ${env.BUILD_URL}allure/"
+                '''
             }
         }
     }
