@@ -31,7 +31,7 @@ pipeline {
                     -H "Authorization: \$MAX_TOKEN" \
                     -H "Content-Type: application/json" \
                      -d '{
-                        "chat_id": 415641905,
+                        "chat_id": "415641905",
                         "text": "🚀 Автотесты Aquilon завершены!\\n\\nСтатус: ${currentBuild.currentResult}\\nСборка: #${env.BUILD_NUMBER}\\n\\n🔗 Отчет Allure: ${env.BUILD_URL}allure/"
                     }'
                 """
