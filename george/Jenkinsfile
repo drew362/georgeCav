@@ -27,15 +27,16 @@ pipeline {
 
             // 2. Достаем токен из сейфа Credentials и шлем веб-запрос на сервера МАКС
             withCredentials([string(credentialsId: 'max_bot_token', variable: 'MAX_TOKEN')]) {
-                sh '''
+                sh """
                     curl -s -X POST "https://max.ru" \
-                    -H "Authorization: ${MAX_TOKEN}" \
+                    -H "Authorization: \$MAX_TOKEN" \
                     -d "chat_id=13956800" \
                     -d "text=🚀 Автотесты Aquilon завершены!%0A%0AСтатус: ${currentBuild.currentResult}%0AСборка: #${env.BUILD_NUMBER}%0A%0A🔗 Отчет Allure: ${env.BUILD_URL}allure/"
-                '''
+                """
             }
         }
     }
+
 
 }
 
