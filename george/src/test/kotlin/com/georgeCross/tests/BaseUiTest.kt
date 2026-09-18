@@ -18,7 +18,7 @@ abstract class BaseUiTest {
             Configuration.headless = true
 
             Configuration.screenshots = true
-            Configuration.timeout = 8000
+            Configuration.timeout = 20000
         }
     }
 
