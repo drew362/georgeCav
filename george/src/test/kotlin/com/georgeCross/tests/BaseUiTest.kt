@@ -20,14 +20,14 @@ abstract class BaseUiTest {
             Configuration.screenshots = true
             Configuration.timeout = 20000
 
-            val options = ChromeOptions().apply {
-                addArguments("--no-sandbox")
-                addArguments("--disable-dev-shm-usage")
-                addArguments("--disable-gpu")
-                addArguments("--headless=new")
-            }
-
-            Configuration.browserCapabilities = options
+//            val options = ChromeOptions().apply {
+//                addArguments("--no-sandbox")
+//                addArguments("--disable-dev-shm-usage")
+//                addArguments("--disable-gpu")
+//                addArguments("--headless=new")
+//            }
+//
+//            Configuration.browserCapabilities = options
         }
     }
 
