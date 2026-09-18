@@ -20,12 +20,8 @@ abstract class BaseUiTest {
             Configuration.screenshots = true
             Configuration.timeout = 20000
 
-            val options = ChromeOptions()
-            options.addArguments("--no-sandbox")
-            options.addArguments("--disable-dev-shm-usage")
-            options.addArguments("--disable-gpu")
+            System.setProperty("chromeoptions.args", "--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-extensions")
 
-            Configuration.browserCapabilities = options
         }
     }
 
