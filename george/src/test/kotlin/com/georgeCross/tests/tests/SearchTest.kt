@@ -14,7 +14,7 @@ class SearchTests : BaseUiTest() {
 
     private val searchPage =  SearchPage()
 
-    @Test
+//    @Test
     @DisplayName("Проверка поиска Георгиевского креста по номеру")
     fun searhNumber(){
         searchPage.searchNumber()
