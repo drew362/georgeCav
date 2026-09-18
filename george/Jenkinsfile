@@ -6,26 +6,15 @@ pipeline {
         jdk 'Java 17'
     }
 
-    pipeline {
-        // Кардинальное изменение: запускаем всю сборку внутри QA-контейнера, где Chrome уже настроен
-        agent {
-            docker {
-                image 'markhobson/maven-chrome:jdk-17'
-                // Даем контейнеру повышенные привилегии и общую память, чтобы Chrome не падал внутри Docker
-                args '-v /var/run/docker.sock:/var/run/docker.sock --shm-size=2g'
-            }
-        }
-
-        stages {
-            stage('Запуск автотестов') {
-                steps {
-                    dir('george') {
-                        // Добавили стандартный флаг -Dselenide.headless=true для надежности напрямую в Maven
-                        sh "mvn clean test -Dselenide.headless=true -Dspring.profiles.active=test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
-                    }
+    stages {
+        stage('Запуск автотестов') {
+            steps {
+                dir('george') {
+                    sh "mvn clean test -Dspring.profiles.active=test -Dyandex.cloud.s3.access-key=${params.S3_KEY} -Dyandex.cloud.s3.secret-key=${params.S3_SECRET}"
                 }
             }
         }
+    }
 
     post {
         always {
