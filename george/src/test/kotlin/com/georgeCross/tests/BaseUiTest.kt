@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration
 import org.junit.jupiter.api.BeforeAll
 import com.codeborne.selenide.Selenide.open
 import org.junit.jupiter.api.BeforeEach
+import org.openqa.selenium.chrome.ChromeOptions
 
 abstract class BaseUiTest {
 
@@ -16,9 +17,15 @@ abstract class BaseUiTest {
             Configuration.baseUrl = "https://aquilon-antique.ru/"
             Configuration.browser = "chrome"
             Configuration.headless = true
-
             Configuration.screenshots = true
             Configuration.timeout = 20000
+
+            val options = ChromeOptions()
+            options.addArguments("--no-sandbox")
+            options.addArguments("--disable-dev-shm-usage")
+            options.addArguments("--disable-gpu")
+
+            Configuration.browserCapabilities = options
         }
     }
 
