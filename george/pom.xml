@@ -182,19 +182,22 @@
                 </configuration>
             </plugin>
 
-            <!-- 3. Плагин запуска тестов Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <includes>
-
-                        <include>**/*Test*.class</include>
+                        <!-- Для Java API тестов -->
+                        <include>**/*Test.java</include>
+                        <include>**/*Test.class</include>
+                        <!-- Для Kotlin UI тестов -->
                         <include>**/*Tests.class</include>
+                        <include>**/*Test*.class</include>
                     </includes>
                 </configuration>
             </plugin>
+
 
             <!-- 4. Сборщик Spring Boot -->
             <plugin>
