@@ -13,19 +13,18 @@ abstract class BaseUiTest {
         @JvmStatic
         @BeforeAll
         fun setUp() {
-//            System.setProperty("webdriver.chrome.driver", "C:\\Users\\drew\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
+            // Настраиваем опции Chrome
+            val options = ChromeOptions().apply {
+                addArguments("--no-sandbox")
+                addArguments("--disable-dev-shm-usage")
+                addArguments("--disable-gpu")
+            }
+
             Configuration.baseUrl = "https://aquilon-antique.ru/"
             Configuration.browser = "chrome"
             Configuration.headless = true
             Configuration.screenshots = true
             Configuration.timeout = 20000
-
-            val options = ChromeOptions().apply {
-                addArguments("--no-sandbox")
-                addArguments("--disable-dev-shm-usage")
-                addArguments("--disable-gpu")
-                addArguments("--headless=new")
-            }
 
             Configuration.browserCapabilities = options
         }
