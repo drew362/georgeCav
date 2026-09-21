@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 @Epic("Автотесты Aquilon UI")
 @Feature("Поиск по номеру")
 
-class SearchTests : BaseUiTest() {
+class SearchTest : BaseUiTest() {
 
     private val searchPage =  SearchPage()
 

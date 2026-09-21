@@ -12,7 +12,6 @@ class ShopPage {
     val title4 = element(By.xpath("//h2[contains(text(), 'Восток')]"))
     val title5 = element(By.xpath("//h2[contains(text(), 'Медали Николая II')]"))
 
-    val badgeCount = element(By.xpath("//span[contains(@class, 'badge')]"))
 
     val categoryButtons = elements(By.xpath("//div[contains(@class, 'sticky-md-top')]//button[contains(@class, 'list-group-item-action')]"))
     val products = elements(By.xpath("//div[contains(@class, 'row-cols-lg-3')]//a"))

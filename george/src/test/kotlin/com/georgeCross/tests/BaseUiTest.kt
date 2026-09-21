@@ -10,9 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 abstract class BaseUiTest {
 
-    val headerSearchAwardsBtn = `$`(By.xpath("//a[contains(text(), 'Поиск наград')]"))
     val headerShopBtn         = `$`(By.xpath("//a[contains(text(), 'Магазин')]"))
-    val headerEvaluationBtn   = `$`(By.xpath("//a[contains(text(), 'Оценка и выкуп')]"))
+    val headerEvaluationBtn   = `$`(By.xpath("//a[contains(text(), 'Скупка и Оценка')]"))
     val headerContactsBtn     = `$`(By.xpath("//a[contains(text(), 'Контакты')]"))
 
     companion object {
@@ -20,7 +19,7 @@ abstract class BaseUiTest {
         @JvmStatic
         @BeforeAll
         fun setUp() {
-            // Настраиваем опции Chrome
+
             val options = ChromeOptions().apply {
                 addArguments("--no-sandbox")
                 addArguments("--disable-dev-shm-usage")
