@@ -1,12 +1,19 @@
 package com.georgeCross.com.georgeCross.tests
 
 import com.codeborne.selenide.Configuration
+import com.codeborne.selenide.Selenide.`$`
 import org.junit.jupiter.api.BeforeAll
 import com.codeborne.selenide.Selenide.open
 import org.junit.jupiter.api.BeforeEach
+import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeOptions
 
 abstract class BaseUiTest {
+
+    val headerSearchAwardsBtn = `$`(By.xpath("//a[contains(text(), 'Поиск наград')]"))
+    val headerShopBtn         = `$`(By.xpath("//a[contains(text(), 'Магазин')]"))
+    val headerEvaluationBtn   = `$`(By.xpath("//a[contains(text(), 'Оценка и выкуп')]"))
+    val headerContactsBtn     = `$`(By.xpath("//a[contains(text(), 'Контакты')]"))
 
     companion object {
 
