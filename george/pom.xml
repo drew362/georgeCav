@@ -111,9 +111,9 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>7.2.3</version>
-            <!-- scope test убран, библиотека доступна глобально во всех папках проекта -->
+            <version>7.15.0</version>
         </dependency>
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
