@@ -23,7 +23,7 @@ pipeline {
                     jdk: '',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'george/target/surefire-reports']]
+                    results: [[path: 'george/target/allure-results']]
 
             withCredentials([string(credentialsId: 'max_bot_token', variable: 'MAX_TOKEN')]) {
                 sh """
