@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @Epic("Автотесты Aquilon UI")
-@Feature("Поиск по номеру")
+@Feature("Тесты по поиску")
 
 class SearchTest : BaseUiTest() {
 

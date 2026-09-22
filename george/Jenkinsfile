@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '30'))
+        timeout(time: 1, unit: 'HOURS')
+    }
+
     tools {
         maven 'Maven 3.9'
         jdk 'Java 17'

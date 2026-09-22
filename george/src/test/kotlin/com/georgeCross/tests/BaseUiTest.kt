@@ -4,15 +4,17 @@ import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide.`$`
 import org.junit.jupiter.api.BeforeAll
 import com.codeborne.selenide.Selenide.open
+import com.codeborne.selenide.logevents.SelenideLogger
+import io.qameta.allure.selenide.AllureSelenide
 import org.junit.jupiter.api.BeforeEach
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeOptions
 
 abstract class BaseUiTest {
 
-    val headerShopBtn         = `$`(By.xpath("//a[contains(text(), 'Магазин')]"))
-    val headerEvaluationBtn   = `$`(By.xpath("//a[contains(text(), 'Скупка и Оценка')]"))
-    val headerContactsBtn     = `$`(By.xpath("//a[contains(text(), 'Контакты')]"))
+    val headerShopBtn = `$`(By.xpath("//a[contains(text(), 'Магазин')]"))
+    val headerEvaluationBtn = `$`(By.xpath("//a[contains(text(), 'Скупка и Оценка')]"))
+    val headerContactsBtn = `$`(By.xpath("//a[contains(text(), 'Контакты')]"))
 
     companion object {
 
@@ -33,11 +35,16 @@ abstract class BaseUiTest {
             Configuration.timeout = 20000
 
             Configuration.browserCapabilities = options
+
+            SelenideLogger.addListener("AllureSelenide", AllureSelenide()
+                    .screenshots(true)
+                    .savePageSource(true)
+            )
         }
     }
 
     @BeforeEach
-    fun openUrl(){
+    fun openUrl() {
         open("")
     }
 }
