@@ -3,9 +3,14 @@ package com.georgeCross.tests.tests
 import com.codeborne.selenide.Selenide.element
 import com.georgeCross.com.georgeCross.tests.BaseUiTest
 import com.georgeCross.tests.pages.BuyPage
+import io.qameta.allure.Epic
+import io.qameta.allure.Feature
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
+
+@Epic("Автотесты Aquilon UI")
+@Feature("Тесты по скупке")
 
 class BuyTest : BaseUiTest() {
 

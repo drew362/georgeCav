@@ -3,8 +3,13 @@ package com.georgeCross.tests.tests
 import com.codeborne.selenide.CollectionCondition
 import com.georgeCross.com.georgeCross.tests.BaseUiTest
 import com.georgeCross.tests.pages.ShopPage
+import io.qameta.allure.Epic
+import io.qameta.allure.Feature
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+
+@Epic("Автотесты Aquilon UI")
+@Feature("Тесты по магазину")
 
 class ShopTest : BaseUiTest() {
 

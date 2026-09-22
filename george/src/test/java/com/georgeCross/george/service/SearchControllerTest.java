@@ -11,6 +11,8 @@ import java.util.List;
 import com.georgeCross.george.controllers.SearchController;
 import com.georgeCross.george.models.Georg;
 import com.georgeCross.george.repositories.ProductRepository;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+@Epic("Автотесты Aquilon Unit")
+@Feature("Тесты по SearchController")
 
 @WebMvcTest(SearchController.class)
 public class SearchControllerTest {

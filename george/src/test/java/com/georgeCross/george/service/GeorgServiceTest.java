@@ -9,12 +9,18 @@ import com.georgeCross.george.models.Georg;
 
 import com.georgeCross.george.repositories.GeorgRepository;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+@Epic("Автотесты Aquilon Unit")
+@Feature("Юнит тесты")
 
 public class GeorgServiceTest {
 
@@ -30,6 +36,7 @@ public class GeorgServiceTest {
     }
 
     @Test
+    @DisplayName("Проверка результатов поиска")
     public void testListProducts() {
         // Arrange
         String name = "Product 1";
@@ -49,6 +56,7 @@ public class GeorgServiceTest {
     }
 
     @Test
+    @DisplayName("Поиск по имени")
     public void testListProductsWithTitle() {
         // Arrange
         String name = "Product 1";

@@ -4,6 +4,8 @@ import com.georgeCross.george.controllers.ShopController;
 import com.georgeCross.george.models.Category;
 import com.georgeCross.george.models.Product;
 import com.georgeCross.george.repositories.ProductRepository;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@Epic("Автотесты Aquilon Unit")
+@Feature("Тесты по ShopController")
 
 @WebMvcTest(ShopController.class)
 public class ShopControllerTest {
@@ -92,7 +97,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    @DisplayName("Post product")
+    @DisplayName("Добавление товара")
     void postProduct() throws Exception {
 
         Product imgProduct = new Product();
@@ -123,7 +128,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    @DisplayName("delete product")
+    @DisplayName("Удаление товара")
     void deleteProductTest() throws Exception {
 
         Long productId = 99L;
@@ -135,7 +140,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    @DisplayName("Редактирование продукта")
+    @DisplayName("Редактирование товара")
     void putUpdateProductTest() throws Exception {
 
 
@@ -170,7 +175,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    @DisplayName("Удаление картинки")
+    @DisplayName("Удаление картинки товара")
     void deleteImages() throws Exception {
 
         Long productId = 1L;

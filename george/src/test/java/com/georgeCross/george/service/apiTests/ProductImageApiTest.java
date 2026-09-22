@@ -2,6 +2,8 @@ package com.georgeCross.george.service.apiTests;
 import com.georgeCross.george.models.Product;
 import com.georgeCross.george.repositories.ProductRepository;
 import com.georgeCross.george.service.ImageService;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+
+@Epic("Автотесты Aquilon REST")
+@Feature("Тесты на restTemplate")
 
 // Поднимаем приложение на случайном порту для честных HTTP-запросов
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

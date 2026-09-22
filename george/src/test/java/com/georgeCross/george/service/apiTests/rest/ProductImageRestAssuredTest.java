@@ -4,6 +4,8 @@ import com.georgeCross.george.models.Category;
 import com.georgeCross.george.models.Product;
 import com.georgeCross.george.repositories.ProductRepository;
 import com.georgeCross.george.service.ImageService;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+@Epic("Автотесты Aquilon REST")
+@Feature("Тесты на REST Assured")
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProductImageRestAssuredTest {
